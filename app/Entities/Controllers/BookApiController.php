@@ -65,7 +65,7 @@ class BookApiController extends ApiController
     {
         $book = $this->queries->findVisibleByIdOrFail(intval($id));
         $book = $this->forJsonDisplay($book);
-        $book->load(['createdBy', 'updatedBy', 'ownedBy']);
+        $book->load(['createdBy', 'updatedBy', 'ownedBy', 'shelves']);
 
         $contents = (new BookContents($book))->getTree(true, false)->all();
         $contentsApiData = (new ApiEntityListFormatter($contents))

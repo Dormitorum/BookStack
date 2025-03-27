@@ -80,7 +80,7 @@ class ChapterApiController extends ApiController
         $chapter = $this->queries->findVisibleByIdOrFail(intval($id));
         $chapter = $this->forJsonDisplay($chapter);
 
-        $chapter->load(['createdBy', 'updatedBy', 'ownedBy']);
+        $chapter->load(['createdBy', 'updatedBy', 'ownedBy', 'book.shelves']);
 
         // Note: More fields than usual here, for backwards compatibility,
         // due to previously accidentally including more fields that desired.
