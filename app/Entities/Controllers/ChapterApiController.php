@@ -2,6 +2,7 @@
 
 namespace BookStack\Entities\Controllers;
 
+use BookStack\Api\ApiEntityListFormatter;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Queries\ChapterQueries;
 use BookStack\Entities\Queries\EntityQueries;
