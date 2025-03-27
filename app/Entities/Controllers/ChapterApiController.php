@@ -86,7 +86,13 @@ class ChapterApiController extends ApiController
         // due to previously accidentally including more fields that desired.
         $pages = $this->entityQueries->pages->visibleForChapterList($chapter->id)
             ->addSelect(['created_by', 'updated_by', 'revision_count', 'editor'])
-            ->get();
+            ->get()
+            ->all();
+
+        $pages = (new ApiEntityListFormatter($pages))
+            ->withField('excerpt', fn(Entity $entity) => $entity->getExcerpt())
+            ->format();
+
         $chapter->setRelation('pages', $pages);
 
         return response()->json($chapter);
