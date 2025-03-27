@@ -74,7 +74,7 @@ class BookApiController extends ApiController
             ->withField('pages', function (Entity $entity) {
                 if ($entity instanceof Chapter) {
                     $pages = $this->pageQueries->visibleForChapterList($entity->id)->get()->all();
-                    return (new ApiEntityListFormatter($pages))->format();
+                    return (new ApiEntityListFormatter($pages))->withField('excerpt', fn(Entity $entity) => $entity->excerpt)->format();
                 }
                 return null;
             })->format();
