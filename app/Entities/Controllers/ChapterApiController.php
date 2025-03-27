@@ -2,7 +2,6 @@
 
 namespace BookStack\Entities\Controllers;
 
-use BookStack\Api\ApiEntityListFormatter;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Queries\ChapterQueries;
 use BookStack\Entities\Queries\EntityQueries;
@@ -87,13 +86,7 @@ class ChapterApiController extends ApiController
         // due to previously accidentally including more fields that desired.
         $pages = $this->entityQueries->pages->visibleForChapterList($chapter->id)
             ->addSelect(['created_by', 'updated_by', 'revision_count', 'editor'])
-            ->get()
-            ->all();
-
-        $pages = (new ApiEntityListFormatter($pages))
-            ->withField('excerpt', fn(Entity $entity) => $entity->getExcerpt())
-            ->format();
-
+            ->get();
         $chapter->setRelation('pages', $pages);
 
         return response()->json($chapter);
