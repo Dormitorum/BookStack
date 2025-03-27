@@ -70,6 +70,7 @@ class BookApiController extends ApiController
         $contents = (new BookContents($book))->getTree(true, false)->all();
         $contentsApiData = (new ApiEntityListFormatter($contents))
             ->withType()
+            ->withField('description', fn(Entity $entity) => $entity->description)
             ->withField('pages', function (Entity $entity) {
                 if ($entity instanceof Chapter) {
                     $pages = $this->pageQueries->visibleForChapterList($entity->id)->get()->all();

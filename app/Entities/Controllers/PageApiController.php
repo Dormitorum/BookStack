@@ -100,9 +100,11 @@ class PageApiController extends ApiController
     public function read(string $id)
     {
         $page = $this->queries->findVisibleByIdOrFail($id);
+        $page = $this->forJsonDisplay($page);
+        
         $page->load(['chapter.book.shelves']);
 
-        return response()->json($page->forJsonDisplay());
+        return response()->json($page);
     }
 
     /**
