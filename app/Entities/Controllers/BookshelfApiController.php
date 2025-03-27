@@ -26,7 +26,7 @@ class BookshelfApiController extends ApiController
     {
         $shelves = $this->queries
             ->visibleForList()
-            ->with(['cover:id,name,url', 'permissions.role:id,display_name'])
+            ->with(['cover:id,name,url', 'permissions.role:id,display_name', 'tags'])
             ->addSelect(['created_by', 'updated_by']);
 
         return $this->apiListingResponse($shelves, [
@@ -66,7 +66,7 @@ class BookshelfApiController extends ApiController
             'books' => function (BelongsToMany $query) {
                 $query->scopes('visible')->with('cover')->get(['id', 'name', 'slug']);
             },
-            'permissions.role:id,display_name'
+            'permissions.role:id,display_name', 'tags'
         ]);
 
         return response()->json($shelf);
