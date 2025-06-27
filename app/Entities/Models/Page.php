@@ -45,6 +45,8 @@ class Page extends BookChild
         'template' => 'boolean',
     ];
 
+    protected $appends = ['excerpt'];
+
     /**
      * Get the entities that are visible to the current user.
      */
@@ -142,5 +144,13 @@ class Page extends BookChild
         $refreshed->html = (new PageContent($refreshed))->render();
 
         return $refreshed;
+    }
+
+    /**
+     * Get excerpt of the page content.
+     */
+    public function getExcerptAttribute(): string
+    {
+        return $this->getExcerpt();
     }
 }

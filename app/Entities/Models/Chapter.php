@@ -35,6 +35,14 @@ class Chapter extends BookChild
     }
 
     /**
+     * Get the book this page sits in.
+     */
+    public function book(): BelongsTo
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+    /**
      * Get the url of this chapter.
      */
     public function getUrl(string $path = ''): string
